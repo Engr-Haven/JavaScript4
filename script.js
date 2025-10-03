@@ -3,12 +3,17 @@ let getDiscountPrice = document.querySelector(`#get-discount`);
 let getWeatherAdvice = document.querySelector(`#get-weather-advice`);
 let startATM = document.querySelector(`#atm-simulation`);
 let getAssistant = document.querySelector(`#get-assistant`);
+let passwordValidation = document.querySelector(`#password-validation`);
+let formatBtn = document.querySelector(`#format`);
+let interestBtn = document.querySelector(`#comp-interest`);
+let decisionBtn = document.querySelector(`#decision-maker`);
 
 //
 //
 // Simple Grading System >>>
 
 getGrading.addEventListener(`click`, getGrade);
+
 function getGrade(score) {
   score = Number(prompt(`Enter the Student score:`));
 
@@ -41,6 +46,7 @@ function getGrade(score) {
 // Discount Calculator >>>
 
 getDiscountPrice.addEventListener(`click`, calculatePrice);
+
 function calculatePrice(price, customerType, isFirstPurchase) {
   price = Number(prompt(`Enter the Product Price:`));
   customerType = prompt(
@@ -158,6 +164,7 @@ function calculatePrice(price, customerType, isFirstPurchase) {
 // Weather Advisor >>>
 
 getWeatherAdvice.addEventListener(`click`, weatherAdvice);
+
 function weatherAdvice(temperature, isRaining) {
   temperature = Number(prompt(`Enter your City's Temperature:`));
   isRaining = confirm(`IS IT RAINING?`);
@@ -192,6 +199,7 @@ function weatherAdvice(temperature, isRaining) {
 // ATM Simulation >>>
 
 startATM.addEventListener(`click`, atm);
+
 function atm(balance, action, amount) {
   balance = Number(prompt(`Enter your Account Balance:`));
   action = prompt(`DEPOSIT or WITHDRAW?`).toLowerCase();
@@ -244,6 +252,7 @@ function atm(balance, action, amount) {
 // Personal Assistant >>>
 
 getAssistant.addEventListener(`click`, personalAssistant);
+
 function personalAssistant(time, weather, dayType) {
   time = Number(prompt(`Enter Time of the Day (E.G 17.56):`)).toFixed(2);
   weather = prompt(
@@ -326,3 +335,114 @@ function personalAssistant(time, weather, dayType) {
   alert(aiAssistant);
   console.log(aiAssistant);
 }
+
+//
+//
+// Password Validation >>>
+
+passwordValidation.addEventListener(`click`, isStrongPassword);
+
+function isStrongPassword(password) {
+  password = prompt(`Enter your password:`);
+
+  if (
+    password.length >= 8 &&
+    /[0-9]/.test(password) &&
+    /[!@#$%^&*()_\-+=[\]{};':\"\\|,.<>/?~`]/.test(password)
+  ) {
+    alert(`Password is allowed!✅`);
+    console.log(`Password is allowed!✅`);
+  } else {
+    alert(`Password is not allowed!❌`);
+    console.log(`Password is not allowed!❌`);
+  }
+}
+
+//
+//
+// Format percentage >>>
+
+formatBtn.addEventListener(`click`, formatPercentage);
+
+function formatPercentage(value) {
+  value = Number(prompt(`Enter a number:`));
+
+  if (Number.isNaN(value)) {
+    alert(`Enter a valid number!🙏🏽`);
+    console.log(`Enter a valid number!🙏🏽`);
+  } else if (value >= 0) {
+    alert(`${value.toFixed(1)}%`);
+    console.log(`${value.toFixed(1)}%`);
+  } else {
+    console.log(`You cracked me guy 😒`);
+    alert(`You cracked me guy 😒`);
+  }
+}
+
+//
+//
+// Compound Interest Calculator >>>
+
+interestBtn.addEventListener(`click`, calculateCompoundInterest);
+
+function calculateCompoundInterest(principal, rate, years) {
+  principal = Number(prompt(`Enter the principal amount:`));
+  rate = Number(prompt(`Enter the rate:`));
+  years = Number(prompt(`Enter the number of years:`));
+
+  if (Number.isNaN(principal) || Number.isNaN(rate) || Number.isNaN(years)) {
+    alert(`This is not a valid number!❌`);
+    console.log(`This is not a valid number!❌`);
+  }
+
+  let compInterest = principal * (1 + rate) ** years;
+  if (Number.isNaN(compInterest)) {
+    console.log(`This is not a valid number!❌`);
+  } else {
+    alert(`Compound Interest: ${compInterest.toFixed(2)}`);
+    console.log(`Compound Interest: ${compInterest.toFixed(2)}`);
+  }
+}
+
+//
+//
+//Decision Maker function >>>
+
+function canGraduate(credits, gpa) {
+  if (Number.isNaN(credits) || Number.isNaN(gpa)) {
+    return `This is not a valid number!❌`;
+  }
+
+  if (!credits || !gpa) {
+    return `Enter a valid number!😒`;
+  }
+
+  if (credits >= 120.0 && gpa >= 2.0) {
+    return `Congratulations! You can graduate!🎉`;
+  } else {
+    return `Sorry! You cannot graduate!😭`;
+  }
+}
+
+decisionBtn.addEventListener(`click`, () => {
+  const credits = Number(prompt(`Enter your credits:`));
+  const gpa = Number(prompt(`Enter your gpa:`));
+
+  if (canGraduate(credits, gpa)) {
+    alert(
+      `Your Credit is: ${credits} \nYour GPA is: ${gpa} \n${canGraduate(
+        credits,
+        gpa
+      )}`
+    );
+    console.log(
+      `Your Credit is: ${credits} \nYour GPA is: ${gpa} \n${canGraduate(
+        credits,
+        gpa
+      )}`
+    );
+  } else {
+    alert(`${canGraduate(credits, gpa)}`);
+    console.log(`${canGraduate(credits, gpa)}`);
+  }
+});
